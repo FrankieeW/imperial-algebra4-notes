@@ -1,0 +1,22 @@
+\documentclass[11pt]{assignment}
+
+\title{Homework X}
+\author{Frankie Feng-Cheng Wang}
+\studentid{YOUR_CID}
+\email{your.email@imperial.ac.uk}
+\course{Algebra 4}
+\lecturer{TBD}
+\institute{Imperial College London}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1}
+
+% Your solution here
+
+\printbibliography
+
+\end{document}
