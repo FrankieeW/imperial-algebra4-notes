@@ -1,22 +1,364 @@
-\documentclass[11pt]{assignment}
-
-\title{Homework X}
-\author{Frankie Feng-Cheng Wang}
-\studentid{YOUR_CID}
-\email{your.email@imperial.ac.uk}
-\course{Algebra 4}
+% Copyright (c) 2026 Frankie Feng-Cheng WANG. All rights reserved.
+% Repository: https://github.com/FrankieeW/
+% !TEX program = xelatex
+% Build homework 1
+% cd Homework/hw1 && latexmk -xelatex -synctex=1 -shell-escape -interaction=nonstopmode -file-line-error -output-directory=out main.tex
+% Alternative engine
+% cd Homework/hw1 && latexmk -lualatex -synctex=1 -shell-escape -interaction=nonstopmode -file-line-error -output-directory=out main.tex
+% Shared deps root for class and logo assets
+\newcommand{\SharedTexPath}{../../.shared-deps/tex}
+\newcommand{\SharedLogoPath}{\SharedTexPath/figures/logo/Imperial_College_London_new_logo}
+\documentclass[12pt]{\SharedTexPath/cls/assignment}
+\renewcommand{\assignmentlogopath}{\SharedLogoPath}
+\title{Algebra IV Assessed Coursework 1}
+\author{Frankie Feng-Cheng WANG}
+\email{fengcheng.wang26@imperial.ac.uk}
+\date{Due: 17 February 2026, 1:00 PM}
+\institute{Department of Mathematics\\Imperial College London}
+\course{MATH70062 Algebra 4}
 \lecturer{TBD}
-\institute{Imperial College London}
-\date{\today}
+\newif\ifshowunassessed%
+\showunassessedfalse%
+\usepackage{amsthm}
+\newenvironment{solution}
+{\par\noindent\rule{\linewidth}{0.4pt}\par\smallskip\begin{proof}[Solution]}
+{\end{proof}\par\noindent\rule{\linewidth}{0.4pt}\par\smallskip}
+\renewcommand{\thesection}{Exercise \arabic{section}}
 
 \begin{document}
-
 \maketitle
 
-\section{Problem 1}
+\section*{Assessed Coursework}
+Upload your solutions to Blackboard before 1:00 PM on 17 February 2026.
+You will be marked on clarity as well as correctness. Total marks: 100.
 
-% Your solution here
+\section{}
+Let
+\[
+	A \xrightarrow{\alpha} B \xrightarrow{\beta} C
+\]
+be a complex of $R$-modules. For another $R$-module $M$ we can apply the
+functor $\operatorname{Hom}_R(-, M)$ and obtain a complex
+\[
+	\operatorname{Hom}_R(A, M) \leftarrow \operatorname{Hom}_R(B, M)
+	\leftarrow \operatorname{Hom}_R(C, M).
+\]
+Assume this complex is exact for all $M$. Show that the original complex is
+exact. \hfill (20)
+\begin{solution}
+	\begin{proof}
+		\emph{Step 1:} Since $A \xrightarrow{\alpha} B \xrightarrow{\beta} C$ is a complex, we
+		already have $\beta \circ \alpha = 0$, hence
+		\[
+			\operatorname{im}(\alpha) \subseteq \ker(\beta).
+		\]
 
-\printbibliography
+		\emph{Step 2:} We prove the reverse inclusion. Let $b \in \ker(\beta)$. Suppose
+		$b \notin \operatorname{im}(\alpha)$. Let
+		\[
+			\pi : B \to B/\operatorname{im}(\alpha)
+		\]
+		be the quotient map. Then $\pi(b) \neq 0$ by assumption, and
+		$\pi \circ \alpha = 0$, so $\pi \in \ker(\alpha^*)$, where
+		\[
+			\alpha^* : \operatorname{Hom}_R(B,M) \to \operatorname{Hom}_R(A,M),
+			\quad f \mapsto f \circ \alpha.
+		\]
+		Take $M = B/\operatorname{im}(\alpha)$. By hypothesis, the Hom-complex
+		\[
+			\operatorname{Hom}_R(A,M) \xleftarrow{\alpha^*} \operatorname{Hom}_R(B,M)
+			\xleftarrow{\beta^*} \operatorname{Hom}_R(C,M)
+		\]
+		is exact, so $\ker(\alpha^*) = \operatorname{im}(\beta^*)$. Hence there exists
+		$g \in \operatorname{Hom}_R(C,M)$ such that
+		\[
+			\pi = g \circ \beta.
+		\]
+		Evaluating at $b$ gives
+		\[
+			\pi(b) = g(\beta(b)) = g(0) = 0,
+		\]
+		contradicting $\pi(b) \neq 0$. Therefore $b \in \operatorname{im}(\alpha)$.
+
+		So $\ker(\beta) \subseteq \operatorname{im}(\alpha)$, and together with Step 1:
+		\[
+			\ker(\beta) = \operatorname{im}(\alpha).
+		\]
+		Hence the original complex is exact.
+	\end{proof}
+\end{solution}
+
+\section{}
+Let $R$ be a (commutative) integral domain with fraction field $K$.
+Prove the following statements or give counterexamples:
+\begin{enumerate}
+	\item $K$ is an injective $R$-module. \hfill (5)
+	      \begin{solution}
+		      \textbf{True.} In fact, $K$ is injective as an $R$-module.
+
+		      By Baer's criterion, it suffices to show: for every ideal $I \subseteq R$,
+		      every $R$-linear map $f:I \to K$ extends to $R \to K$.
+
+		      If $I=0$, this is trivial. If $I \neq 0$, pick $0 \neq a \in I$ and set
+		      $k:=f(a)/a \in K$. For any $x \in I$,
+		      \[
+			      a f(x)=f(ax)=x f(a)=x a k,
+		      \]
+		      hence $f(x)=xk$. So $f$ is multiplication by $k$ on $I$, and therefore
+		      extends to $\widetilde f:R\to K$, $\widetilde f(r)=rk$.
+	      \end{solution}
+	\item $K$ is a projective $R$-module. \hfill (5)
+	      \begin{solution}
+		      \textbf{False in general.} Counterexample: $R=\mathbb Z$,
+		      $K=\mathbb Q$.
+
+		      If $\mathbb Q$ were projective over $\mathbb Z$, then it would be a direct
+		      summand of a free abelian group, hence itself free abelian. But a nonzero
+		      free abelian group is not divisible, whereas $\mathbb Q$ is divisible.
+		      Contradiction.
+	      \end{solution}
+	\item The short exact sequence of $R$-modules
+	      \[
+		      0 \to R \to K \to K/R \to 0
+	      \]
+	      is split. \hfill (5)
+	      \begin{solution}
+		      \textbf{False in general.} Again take $R=\mathbb Z$, $K=\mathbb Q$:
+		      \[
+			      0 \to \mathbb Z \to \mathbb Q \to \mathbb Q/\mathbb Z \to 0.
+		      \]
+		      If this split, then $\mathbb Z$ would be a direct summand of
+		      $\mathbb Q$. But direct summands of divisible groups are divisible, and
+		      $\mathbb Q$ is divisible while $\mathbb Z$ is not. Contradiction.
+	      \end{solution}
+	\item A module $M$ is torsion if and only if $M \otimes_R K = 0$. \hfill (10)
+	      \begin{solution}
+		      \textbf{True.} We have
+		      \[
+			      M\otimes_R K \cong S^{-1}M,
+			      \quad S=R\setminus\{0\}.
+		      \]
+		      For $m\in M$, $m/1=0$ in $S^{-1}M$ iff there exists $s\in S$ with
+		      $sm=0$. Thus $S^{-1}M=0$ iff every element of $M$ is annihilated by some
+		      nonzero element of $R$, which is exactly the definition of a torsion
+		      module.
+	      \end{solution}
+\end{enumerate}
+
+\section{}
+Calculate the following abelian groups:
+\begin{enumerate}
+	\item $\operatorname{Hom}_{\mathbb{Z}}(\mathbb{Z}/6, \mathbb{Z}/9)$ \hfill (5)
+	      \begin{solution}
+		      \[
+			      \operatorname{Hom}_{\mathbb Z}(\mathbb Z/6,\mathbb Z/9)
+			      \cong \mathbb Z/\gcd(6,9)
+			      \cong \mathbb Z/3.
+		      \]
+	      \end{solution}
+	\item $\operatorname{Hom}_{\mathbb{Z}}(\mathbb{Z}/3, \mathbb{Q}/\mathbb{Z})$ \hfill (5)
+	      \begin{solution}
+		      A homomorphism $\mathbb Z/3\to\mathbb Q/\mathbb Z$ is determined by the
+		      image of $1$, which must be $3$-torsion. The $3$-torsion subgroup of
+		      $\mathbb Q/\mathbb Z$ is cyclic of order $3$ (generated by
+		      $\frac13+\mathbb Z$). Hence
+		      \[
+			      \operatorname{Hom}_{\mathbb Z}(\mathbb Z/3,\mathbb Q/\mathbb Z)
+			      \cong \mathbb Z/3.
+		      \]
+	      \end{solution}
+	\item $\operatorname{Hom}_{\mathbb{Z}}(\mathbb{Q}/\mathbb{Z}, \mathbb{Z}/3)$ \hfill (5)
+	      \begin{solution}
+		      $\mathbb Q/\mathbb Z$ is divisible, and the image of a divisible group is
+		      divisible. But $\mathbb Z/3$ has no nonzero divisible subgroup. Therefore
+		      every homomorphism is zero:
+		      \[
+			      \operatorname{Hom}_{\mathbb Z}(\mathbb Q/\mathbb Z,\mathbb Z/3)=0.
+		      \]
+	      \end{solution}
+	\item $\mathbb{Z}/4 \otimes_{\mathbb{Z}} \mathbb{Z}/16$ \hfill (5)
+	      \begin{solution}
+		      \[
+			      \mathbb Z/4\otimes_{\mathbb Z}\mathbb Z/16
+			      \cong \mathbb Z/\gcd(4,16)
+			      \cong \mathbb Z/4.
+		      \]
+	      \end{solution}
+	\item $\mathbb{Q}/\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Q}/\mathbb{Z}$ \hfill (5)
+	      \begin{solution}
+		      Write $\mathbb Q/\mathbb Z\cong\varinjlim_n \mathbb Z/n$. Then
+		      \[
+			      (\mathbb Q/\mathbb Z)\otimes_{\mathbb Z}(\mathbb Q/\mathbb Z)
+			      \cong \varinjlim_n\bigl((\mathbb Z/n)\otimes_{\mathbb Z}(\mathbb Q/\mathbb Z)\bigr).
+		      \]
+		      But
+		      \[
+			      (\mathbb Z/n)\otimes_{\mathbb Z}A \cong A/nA,
+		      \]
+		      and for $A=\mathbb Q/\mathbb Z$ we have $nA=A$ (divisibility), so
+		      $A/nA=0$. Hence every term in the colimit is $0$, so
+		      \[
+			      \mathbb Q/\mathbb Z\otimes_{\mathbb Z}\mathbb Q/\mathbb Z=0.
+		      \]
+	      \end{solution}
+\end{enumerate}
+
+\section{}
+Consider the half-open interval from $0$ to $1$. The operation addition modulo $1$ makes
+this into an abelian group $A$.
+\begin{enumerate}
+	\item Determine the torsion subgroup $A_{\mathrm{tors}}$ of $A$. \hfill (10)
+	      \begin{solution}
+		      Identify $A$ with $\mathbb R/\mathbb Z$. An element
+		      $x+\mathbb Z\in\mathbb R/\mathbb Z$ has finite order iff
+		      $nx\in\mathbb Z$ for some $n\ge1$, that is, iff $x\in\mathbb Q$. Therefore
+		      \[
+			      A_{\mathrm{tors}}=\mathbb Q/\mathbb Z
+		      \]
+		      (equivalently, in this half-open interval: exactly the rational points).
+	      \end{solution}
+	\item Show that $A_{\mathrm{tors}}$ is a direct summand of $A$. \hfill (10)
+	      \begin{solution}
+		      Under $A\cong\mathbb R/\mathbb Z$, we have
+		      $A_{\mathrm{tors}}=\mathbb Q/\mathbb Z$.
+		      This group is divisible, hence injective as an abelian group.
+		      Consider the inclusion
+		      $i:A_{\mathrm{tors}}\hookrightarrow A$ and the identity map
+		      $\mathrm{id}_{A_{\mathrm{tors}}}:A_{\mathrm{tors}}\to A_{\mathrm{tors}}$.
+		      Injectivity gives an extension
+		      \[
+			      r:A\to A_{\mathrm{tors}}
+			      \quad\text{with}\quad r\circ i=\mathrm{id}_{A_{\mathrm{tors}}}.
+		      \]
+		      So $i$ splits, and therefore $A_{\mathrm{tors}}$ is a direct summand of
+		      $A$.
+	      \end{solution}
+	\item Show that $A/A_{\mathrm{tors}}$ is an uncountable $\mathbb{Q}$-vector space.
+	      \hfill (10)
+	      \begin{solution}
+		      Again identify $A\cong\mathbb R/\mathbb Z$ and
+		      $A_{\mathrm{tors}}\cong\mathbb Q/\mathbb Z$. By the third isomorphism theorem,
+		      \[
+			      A/A_{\mathrm{tors}}
+			      \cong (\mathbb R/\mathbb Z)/(\mathbb Q/\mathbb Z)
+			      \cong \mathbb R/\mathbb Q.
+		      \]
+		      This quotient is divisible (quotient of a divisible group) and torsion-free
+		      (we modded out all torsion), hence a $\mathbb Q$-vector space.
+
+		      Also $|\mathbb R/\mathbb Q|=|\mathbb R|$, so it is uncountable.
+		      A countable-dimensional vector space over the countable field
+		      $\mathbb Q$ is countable. Therefore the $\mathbb Q$-dimension of
+		      $A/A_{\mathrm{tors}}$ must be uncountable.
+	      \end{solution}
+\end{enumerate}
+
+\ifshowunassessed%
+	\section*{Unassessed Practice Problems}
+	The rest of this problem sheet is unassessed, for practice only.
+	Do not upload solutions to these problems.
+
+	\begin{enumerate}
+		\item Let $F : \mathcal{C} \to \mathcal{D}$ and $G : \mathcal{D} \to \mathcal{C}$ be a
+		      pair of functors. Suppose that we have natural transformations
+		      $\eta : \mathrm{id}_{\mathcal{C}} \Rightarrow GF$ and
+		      $\epsilon : FG \Rightarrow \mathrm{id}_{\mathcal{D}}$ such that
+		      $G\epsilon \circ \eta G = \mathrm{id}_G$ and
+		      $\epsilon F \circ F\eta = \mathrm{id}_F$. Show that $F$ and $G$ are adjoint,
+		      with unit $\eta$ and counit $\epsilon$.
+
+		\item Construct infinitely many pairwise non-isomorphic projective
+		      $\mathbb{Z}/12$-modules, none of which are free.
+
+		\item Show that the coproduct $\bigoplus_{n \in \mathbb{N}} \mathbb{Z}/n\mathbb{Z}$ is a
+		      torsion $\mathbb{Z}$-module, but the product $\prod_{n \in \mathbb{N}} \mathbb{Z}/n\mathbb{Z}$
+		      is not.
+
+		\item Let $R$ be a commutative ring. Then the abelian group
+		      $\operatorname{Hom}_R(A,B)$ has the structure of an $R$-module via
+		      $f \mapsto rf$ for all $r \in R$, $f \in \operatorname{Hom}_R(A,B)$. Indeed, this
+		      $R$-action really does take $R$-module homomorphisms to $R$-module
+		      homomorphisms:
+		      \[
+			      rf(sa) = rsf(a) = srf(a),
+		      \]
+		      so $rf \in \operatorname{Hom}_R(A,B)$.
+		      \begin{enumerate}
+			      \item Prove that there is an isomorphism of $R$-modules
+			            \[
+				            \operatorname{Bilin}_R(A \times B, C)
+				            \cong
+				            \operatorname{Hom}_R\bigl(B, \operatorname{Hom}_R(A,C)\bigr)
+			            \]
+			            where $\operatorname{Bilin}_R(A \times B, C)$ denotes the set of
+			            $R$-bilinear maps $f : A \times B \to C$ with the structure of an
+			            $R$-module given by additions of maps $(f,g) \mapsto f+g$ and the ring
+			            action $(r,f) \mapsto rf$.
+
+			      \item Prove that there is an isomorphism of $R$-modules
+			            \[
+				            \operatorname{Hom}_R(A \otimes_R B, C)
+				            \cong
+				            \operatorname{Bilin}_R(A \times B, C).
+			            \]
+		      \end{enumerate}
+		      Note that you have just shown
+		      \[
+			      \operatorname{Hom}_R(A \otimes_R B, C)
+			      \cong
+			      \operatorname{Hom}_R\bigl(B, \operatorname{Hom}_R(A,C)\bigr).
+		      \]
+		      Everything you did was natural in $B$ and $C$, so in particular you have
+		      shown that the functors $A \otimes_R -$ and $\operatorname{Hom}_R(A,-)$ are
+		      adjoint. Tensor is left adjoint to Hom, and Hom is right adjoint to tensor.
+
+		\item
+		      \begin{enumerate}
+			      \item Give an example of a submodule of a free module which is not free.
+			      \item In class we showed that if $R$ is a PID then every submodule of a free
+			            $R$-module is free. Prove the following easier statement: Let $R$ be a PID
+			            and let $M$ be an $R$-module which is free of finite rank. Then every
+			            submodule of $M$ is free (of finite rank $\le n$). Do this without using
+			            Zorn's lemma or anything like that.
+		      \end{enumerate}
+
+		\item Let $M$ be an $R$-module. Prove that there is a canonical isomorphism of
+		      abelian groups
+		      \[
+			      \operatorname{Hom}_R\bigl(M, \operatorname{Hom}_{\mathbb{Z}}(R, \mathbb{Q}/\mathbb{Z})\bigr)
+			      \cong
+			      \operatorname{Hom}_{\mathbb{Z}}(M, \mathbb{Q}/\mathbb{Z}).
+		      \]
+		      Here we consider $\operatorname{Hom}_{\mathbb{Z}}(R, \mathbb{Q}/\mathbb{Z})$ with
+		      the left $R$-module structure given in the lectures.
+
+		\item Let $R$ be an integral domain and let $M$ be a finitely generated
+		      torsion-free $R$-module. Show that $M$ is isomorphic to a submodule of a free
+		      $R$-module of finite rank.
+
+		\item
+		      \begin{enumerate}
+			      \item Let $R$ be a ring. Prove the following statement:
+
+		            $P$ is a projective $R$-module if and only if there is a set $I$ and elements
+		            $(e_i)_{i \in I}$ of $P$ and elements $(f_i)_{i \in I}$ of
+			            $\operatorname{Hom}_R(P,R)$ such that
+			            \[
+				            p = \sum_i e_i f_i(p)
+			            \]
+			            for all $p \in P$ (and the sum is always finite).
+
+			            This is called the dual basis criterion for projectivity.
+
+			      \item Let $R=C[0,1]$ be the ring of continuous real-valued functions on
+			            $[0,1]$.
+
+			            Let $P=C(0)[0,1]$ be the ideal in $R$ of those functions $f$ such that
+			            $f|_{[0,\epsilon]}=0$ for some $\epsilon>0$. Show that $P$ is a projective
+			            $R$-module (hint: use an infinite partition of unity and the previous part).
+			            Do the same thing for smooth functions if you like.
+		      \end{enumerate}
+	\end{enumerate}
+\fi
 
 \end{document}

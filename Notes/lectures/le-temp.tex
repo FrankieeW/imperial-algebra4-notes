@@ -1,0 +1,42 @@
+\documentclass[../main.tex]{subfiles}
+\usepackage{csquotes}
+\usepackage{fontspec}
+\setmonofont{FreeMono}
+\begin{document}
+
+\section{Lecture 2}
+Today: The structure theorem and modules over a PID.
+\subsection{Modules Over a PID}
+\begin{definition}
+	A commutative ring $R$ with unity ($1 \neq 0$) is a \textbf{principal ideal domain (PID)} if
+	\begin{itemize}
+		\item $R$ is an integral domain (no zero divisors), and
+		\item every ideal of $R$ is principal, i.e. for all $I \subseteq R$ there exists $a \in R$ such that $I = (a)$.
+	\end{itemize}
+\end{definition}
+\begin{example} Examples of PIDs:
+	\begin{itemize}
+		\item $\mathbb{Z}$ is a PID.
+		\item $k[x]$ is a PID, where $k$ is a field.
+	\end{itemize}
+\end{example}
+\begin{proposition}
+	Let $M$ be a module over a PID $R$. Then
+	\[
+		M \text{ is injective } \iff M \text{ is divisible},
+	\]
+	i.e. for all $m \in M$ and all $r \in R \setminus \{0\}$ there exists $m' \in M$ such that $m = r m'$.
+\end{proposition}
+\begin{proof}
+	($\Rightarrow$) Suppose $M$ is injective. Let $r \in R \setminus \{0\}$ and $m \in M$. Define $f:(r) \to M$ by $f(r)=m$. Since $M$ is injective, the inclusion $(r) \hookrightarrow R$ extends to $g:R \to M$ with $g\vert_{(r)}=f$ and the diagram
+	\[
+		\begin{tikzcd}
+			I=(r) \arrow[r, "f"] \arrow[d, hook] & M \\
+			R \arrow[ru, dashed, "\exists g"]
+		\end{tikzcd}
+	\]
+	commutes. Then $m=f(r)=g(r)=r g(1)$, so $m$ is divisible by $r$.
+
+	($\Leftarrow$) Suppose $M$ is divisible. Let $I \subseteq R$ be an ideal and $f:I \to M$ an $R$-module homomorphism. Since $R$ is a PID, $I=(a)$ for some $a \in R$. If $a=0$, then $I=0$ and the zero map extends. If $a \neq 0$, divisibility gives $m' \in M$ with $f(a)=a m'$. Define $g:R \to M$ by $g(r)=r m'$. Then $g$ is an $R$-module homomorphism and $g(a)=a m'=f(a)$, so $g\vert_{(a)}=f$. Hence $M$ is injective.
+\end{proof}
+\end{document}
