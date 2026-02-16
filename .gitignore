@@ -9,6 +9,7 @@
 *.out
 *.run.xml
 *.synctex.gz
+*.xdv
 *.toc
 *.lof
 *.lot
@@ -16,8 +17,16 @@
 *.snm
 *.vrb
 
+# LaTeX output directories (keep placeholder files only)
+**/out/*
+!**/out/.gitkeep
+
 # Minted
 _minted-*/
+
+# Local backup files
+*.bak*
+*.backup-*
 
 # PDF (optional - uncomment to ignore)
 # *.pdf
