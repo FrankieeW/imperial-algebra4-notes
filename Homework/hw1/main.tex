@@ -12,11 +12,11 @@
 \renewcommand{\assignmentlogopath}{\SharedLogoPath}
 \title{Algebra IV Assessed Coursework 1}
 \author{Frankie Feng-Cheng WANG}
-\email{fengcheng.wang26@imperial.ac.uk}
+\email{fw225@ic.ac.uk}
 \date{Due: 17 February 2026, 1:00 PM}
 \institute{Department of Mathematics\\Imperial College London}
 \course{MATH70062 Algebra 4}
-\lecturer{TBD}
+% \lecturer{TBD}
 \newif\ifshowunassessed%
 \showunassessedfalse%
 \usepackage{amsthm}
@@ -46,50 +46,49 @@ functor $\operatorname{Hom}_R(-, M)$ and obtain a complex
 Assume this complex is exact for all $M$. Show that the original complex is
 exact. \hfill (20)
 \begin{solution}
-	\begin{proof}
-		We follow the exact-sequence notation used in the lecture notes,
-		in particular \S2.2 of the course notes.
+	We follow the exact-sequence notation used in the lecture notes,
+	in particular \S2.2 (p.~9), and the Hom exactness viewpoint of
+	Lemma~2.11 (p.~13).
 
-		\emph{Step 1:} Since $A \xrightarrow{\alpha} B \xrightarrow{\beta} C$ is a complex, we
-		already have $\beta \circ \alpha = 0$, hence
-		\[
-			\operatorname{im}(\alpha) \subseteq \ker(\beta).
-		\]
+	\emph{Step 1:} Since $A \xrightarrow{\alpha} B \xrightarrow{\beta} C$ is a complex, we
+	already have $\beta \circ \alpha = 0$, hence
+	\[
+		\operatorname{im}(\alpha) \subseteq \ker(\beta).
+	\]
 
-		\emph{Step 2:} We prove the reverse inclusion. Let $b \in \ker(\beta)$. Suppose
-		$b \notin \operatorname{im}(\alpha)$. Let
-		\[
-			\pi : B \to B/\operatorname{im}(\alpha)
-		\]
-		be the quotient map. Then $\pi(b) \neq 0$ by assumption, and
-		$\pi \circ \alpha = 0$, so $\pi \in \ker(\alpha^*)$, where
-		\[
-			\alpha^* : \operatorname{Hom}_R(B,M) \to \operatorname{Hom}_R(A,M),
-			\quad f \mapsto f \circ \alpha,
-		\]
-		with $M = B/\operatorname{im}(\alpha)$. Since the Hom-complex is exact at
-		$\operatorname{Hom}_R(B,M)$, we have
-		\[
-			\ker(\alpha^*) = \operatorname{im}(\beta^*).
-		\]
-		Hence there exists $g \in \operatorname{Hom}_R(C,M)$ such that
-		\[
-			\pi = g \circ \beta.
-		\]
-		Evaluating at $b$:
-		\[
-			\pi(b)
-			= (g \circ \beta)(b)
-			= g(\beta(b))
-			= g(0)
-			= 0,
-		\]
-		contradicting $\pi(b) \neq 0$. Thus $b \in \operatorname{im}(\alpha)$.
-		\[
-			\ker(\beta) = \operatorname{im}(\alpha).
-		\]
-		Hence the original complex is exact.
-	\end{proof}
+	\emph{Step 2:} We prove the reverse inclusion. Let $b \in \ker(\beta)$. Suppose
+	$b \notin \operatorname{im}(\alpha)$. Let
+	\[
+		\pi : B \to B/\operatorname{im}(\alpha)
+	\]
+	be the quotient map. Then $\pi(b) \neq 0$ by assumption, and
+	$\pi \circ \alpha = 0$, so $\pi \in \ker(\alpha^*)$, where
+	\[
+		\alpha^* : \operatorname{Hom}_R(B,M) \to \operatorname{Hom}_R(A,M),
+		\quad f \mapsto f \circ \alpha,
+	\]
+	with $M = B/\operatorname{im}(\alpha)$. Since the Hom-complex is exact at
+	$\operatorname{Hom}_R(B,M)$, we have
+	\[
+		\ker(\alpha^*) = \operatorname{im}(\beta^*).
+	\]
+	Hence there exists $g \in \operatorname{Hom}_R(C,M)$ such that
+	\[
+		\pi = g \circ \beta.
+	\]
+	Evaluating at $b$:
+	\[
+		\pi(b)
+		= (g \circ \beta)(b)
+		= g(\beta(b))
+		= g(0)
+		= 0,
+	\]
+	contradicting $\pi(b) \neq 0$. Thus $b \in \operatorname{im}(\alpha)$.
+	\[
+		\ker(\beta) = \operatorname{im}(\alpha).
+	\]
+	Hence the original complex is exact.
 \end{solution}
 
 \section{}
@@ -100,7 +99,7 @@ Prove the following statements or give counterexamples:
 	      \begin{solution}
 		      \textbf{True.} In fact, $K$ is injective as an $R$-module.
 
-		      By Baer's criterion (Theorem~2.8 in the course notes),
+		      By Baer's criterion (Theorem~2.8, p.~11 in the course notes),
 		      it suffices to show: for every ideal $I \subseteq R$,
 		      every $R$-linear map $f:I \to K$ extends to $R \to K$.
 
@@ -132,7 +131,7 @@ Prove the following statements or give counterexamples:
 
 		      If $\mathbb Q$ were projective over $\mathbb Z$, then it would be a direct
 		      summand of a free abelian group, and over a PID every projective module is
-		      free (Corollary~3.4 in the course notes). Thus
+		      free (Corollary~3.4, p.~20 in the course notes). Thus
 		      \[
 			      \mathbb Q \cong \bigoplus_{i\in I}\mathbb Z
 		      \]
@@ -161,7 +160,7 @@ Prove the following statements or give counterexamples:
 		      \[
 			      0 \to \mathbb Z \to \mathbb Q \to \mathbb Q/\mathbb Z \to 0.
 		      \]
-		      By Proposition~2.2 in the course notes, split exactness
+		      By Proposition~2.2 (pp.~9--10 in the course notes), split exactness
 		      is equivalent to the existence of a section/retraction, equivalently to
 		      direct-summand form. If this split, then
 		      \[
@@ -188,11 +187,13 @@ Prove the following statements or give counterexamples:
 	\item A module $M$ is torsion if and only if $M \otimes_R K = 0$. \hfill (10)
 	      \begin{solution}
 		      \textbf{True.} This agrees with the torsion perspective in
-		      \S3.1 of the course notes. We have
+		      \S3.1 (p.~19 of the course notes). We have
 		      \[
 			      M\otimes_R K \cong S^{-1}M,
 			      \quad S=R\setminus\{0\}.
 		      \]
+		      (standard localization isomorphism, consistent with the Week 4 tensor/
+		      localization perspective in \S0.2, pp.~14--18.)
 		      For $m\in M$,
 		      \[
 			      \frac{m}{1}=0 \text{ in } S^{-1}M
@@ -272,7 +273,7 @@ Calculate the following abelian groups:
 	      \end{solution}
 	\item $\mathbb{Z}/4 \otimes_{\mathbb{Z}} \mathbb{Z}/16$ \hfill (5)
 	      \begin{solution}
-		      Use the canonical identity from the Week 4 tensor-product section
+		      Use the canonical identity from \S0.2 (Week 4, pp.~14--18)
 		      of the course notes,
 		      \[
 			      A\otimes_{\mathbb Z}(\mathbb Z/n)\cong A/nA.
@@ -321,7 +322,7 @@ Calculate the following abelian groups:
 			      \cong (\mathbb Q/\mathbb Z)/n(\mathbb Q/\mathbb Z).
 		      \]
 		      Since $\mathbb Q/\mathbb Z$ is divisible (see the examples in
-		      \S3.1 of the course notes), we have
+		      \S3.1, p.~19 of the course notes), we have
 		      \[
 			      n(\mathbb Q/\mathbb Z)=\mathbb Q/\mathbb Z,
 		      \]
@@ -362,7 +363,7 @@ this into an abelian group $A$.
 		      \]
 		      (equivalently, in this half-open interval: exactly the rational points),
 		      matching the definition of $M_{\mathrm{tors}}$ in
-		      \S3.1 of the course notes.
+		      \S3.1 (p.~19 of the course notes).
 	      \end{solution}
 	\item Show that $A_{\mathrm{tors}}$ is a direct summand of $A$. \hfill (10)
 	      \begin{solution}
@@ -370,7 +371,8 @@ this into an abelian group $A$.
 		      \[
 			      A_{\mathrm{tors}}=\mathbb Q/\mathbb Z.
 		      \]
-		      Since $\mathbb Z$ is a PID, Theorem~3.5 in the course notes gives
+		      Since $\mathbb Z$ is a PID, Theorem~3.5 (pp.~20--21 in the course notes)
+		      gives
 		      \[
 			      \text{injective }\Longleftrightarrow\text{ divisible}
 			      \quad\text{for }\mathbb Z\text{-modules}.
